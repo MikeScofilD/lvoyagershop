@@ -46,10 +46,10 @@
                         </div>
                     </div>
                     <div class="col-xl-8 col-lg-7 d-none d-lg-block">
-                        <div class="main-menu text-center"> 
+                        <div class="main-menu text-center">
                             <nav>
                                 <ul>
-                                    <li><a href="{{route('home')}}">HOME</a></li>
+                                    <li><a href="{{ route('home') }}">HOME</a></li>
                                     <li class="mega-menu-position"><a href="{{ route('pet-shop/food') }}">Food</a>
 
                                     </li>
@@ -82,48 +82,41 @@
                             <div class="header-cart same-style">
                                 <button class="icon-cart">
                                     <i class="icon-handbag"></i>
-                                    <span class="count-style">02</span>
+                                    <span
+                                        class="count-style">{{ \Cart::session(Session::getId())->getTotalQuantity() }}</span>
                                 </button>
+
                                 <div class="shopping-cart-content">
-                                    <ul>
-                                        <li class="single-shopping-cart">
-                                            <div class="shopping-cart-img">
-                                                <a href="#"><img alt=""
-                                                        src="{{ asset('img/cart/cart-1.jpg') }}"></a>
-                                            </div>
-                                            <div class="shopping-cart-title">
-                                                <h4><a href="#">Dog Calcium Food </a></h4>
-                                                <h6>Qty: 02</h6>
-                                                <span>$260.00</span>
-                                            </div>
-                                            <div class="shopping-cart-delete">
-                                                <a href="#"><i class="ti-close"></i></a>
-                                            </div>
-                                        </li>
-                                        <li class="single-shopping-cart">
-                                            <div class="shopping-cart-img">
-                                                <a href="#"><img alt=""
-                                                        src="{{ asset('img/cart/cart-2.jpg') }}"></a>
-                                            </div>
-                                            <div class="shopping-cart-title">
-                                                <h4><a href="#">Dog Calcium Food</a></h4>
-                                                <h6>Qty: 02</h6>
-                                                <span>$260.00</span>
-                                            </div>
-                                            <div class="shopping-cart-delete">
-                                                <a href="#"><i class="ti-close"></i></a>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                    @foreach ($cart as $item)
+                                        <ul>
+                                            <li class="single-shopping-cart">
+                                                <div class="shopping-cart-img">
+                                                    <a href="#"><img alt=""
+                                                            src="{{ asset('storage/'.$item->attributes->image) }}"></a>
+                                                </div>
+                                                <div class="shopping-cart-title">
+                                                    <h4><a href="#">{{ $item->name }} </a></h4>
+                                                    <h6>Qty: {{$item->quantity}}</h6>
+                                                    <span>${{$item->price*$item->quantity}}</span>
+                                                </div>
+                                                <div class="shopping-cart-delete">
+                                                    <a href="#"><i class="ti-close"></i></a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    @endforeach
                                     <div class="shopping-cart-total">
                                         <h4>Shipping : <span>$20.00</span></h4>
-                                        <h4>Total : <span class="shop-total">$260.00</span></h4>
+                                        <h4>Total : <span class="shop-total">${{$sum}}</span></h4>
                                     </div>
                                     <div class="shopping-cart-btn">
                                         <a href="cart.html">view cart</a>
                                         <a href="checkout.html">checkout</a>
                                     </div>
+
                                 </div>
+
+
                             </div>
                         </div>
                     </div>

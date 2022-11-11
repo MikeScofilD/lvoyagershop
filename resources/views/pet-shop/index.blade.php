@@ -108,7 +108,7 @@ Lorem ipsum dolor sit amet, co adipisi elit, sed eiusmod tempor incididunt ut la
                                         href="#">
                                         <i class="ti-plus"></i>
                                     </a>
-                                    <a title="Add To Cart" href="#">
+                                    <a title="Add To Cart" href="{{route('pet-shop/add',['id' => $randProduct->id])}}">
                                         <i class="ti-shopping-cart"></i>
                                     </a>
                                 </div>

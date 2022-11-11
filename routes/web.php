@@ -33,6 +33,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('pet-shop/add', [ProductController::class,'addCart'])->name('pet-shop/add');
+
 require __DIR__ . '/auth.php';
 
 
