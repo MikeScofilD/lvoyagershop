@@ -13,7 +13,14 @@ class ProductController extends Controller
         $products = Product::all();
         $products = Product::query()->select()->where(['id' => 2])->get();
         // return "jello";
-        return view('pet-shop/shop-page', ['products' => $products]);
+
+        $sessionId = Session::getId();
+        \Cart::session($sessionId);
+        $cart = \Cart::getContent();
+        $sum = \Cart::getTotal('price');
+
+        return view('pet-shop/shop-page', ['products' => $products, 'cart' => $cart,
+            'sum' => $sum]);
     }
 
     public function shopIndex()
@@ -43,11 +50,8 @@ class ProductController extends Controller
 
     public function addCart(Request $request)
     {
-        // dd($request);
         $product = Product::query()->where(['id' => $request->id])->first();
-        // dd($product);
         $sessionId = Session::getId();
-        // dd($sessionId);
 
         \Cart::session($sessionId)->add([
             'id' => $product->id,
@@ -60,8 +64,20 @@ class ProductController extends Controller
         ]);
 
         $cart = \Cart::getContent();
-        // dd($cart);
+
         return redirect()->back();
 
+    }
+
+    public function contact()
+    {
+        $sessionId = Session::getId();
+        \Cart::session($sessionId);
+        $cart = \Cart::getContent();
+        $sum = \Cart::getTotal('price');
+        return view('pet-shop/contact', [
+            'cart' => $cart,
+            'sum' => $sum,
+        ]);
     }
 }

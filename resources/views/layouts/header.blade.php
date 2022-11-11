@@ -77,7 +77,7 @@
                                 </div>
                             </div>
                             <div class="header-login same-style">
-                                <a href="login-register.html"><i class="icon-user icons"></i></a>
+                                <a href="pet-shop/profile"><i class="icon-user icons"></i></a>
                             </div>
                             <div class="header-cart same-style">
                                 <button class="icon-cart">
@@ -161,7 +161,7 @@
                                                 <a href="my-account.html">my account</a>
                                             </li>
                                             <li>
-                                                <a href="login-register.html">login / register</a>
+                                                <a href="login-register">login / register</a>
                                             </li>
                                         </ul>
                                     </li>

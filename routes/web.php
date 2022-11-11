@@ -21,9 +21,7 @@ Route::get('pet-shop/food', [ProductController::class,'shopList'])->name('pet-sh
 
 
 
-Route::get('pet-shop/contact', function () {
-    return view('pet-shop/contact');
-})->name('pet-shop/contact');
+Route::get('pet-shop/contact', [ProductController::class, 'contact'])->name('pet-shop/contact');
 
 Route::get('pet-shop/about', [PetController::class, 'about'])->name('pet-shop/about');
 
@@ -35,8 +33,11 @@ Route::get('/dashboard', function () {
 
 Route::get('pet-shop/add', [ProductController::class,'addCart'])->name('pet-shop/add');
 
-require __DIR__ . '/auth.php';
+Route::get('pet-shop/checkout', [ProductController::class,'checkout'])->name('pet-shop/checkout');
 
+Route::get('pet-shop/profile', [ProductController::class, 'profile'])->name('pet-shop/profile')->middleware('auth');
+
+require __DIR__ . '/auth.php';
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
