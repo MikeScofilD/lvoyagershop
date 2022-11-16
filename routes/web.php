@@ -33,9 +33,11 @@ Route::get('/dashboard', function () {
 
 Route::get('pet-shop/add', [ProductController::class,'addCart'])->name('pet-shop/add');
 
-Route::get('pet-shop/checkout', [ProductController::class,'checkout'])->name('pet-shop/checkout');
+Route::get('pet-shop/checkout', [ProductController::class,'checkout'])->name('pet-shop/checkout')->middleware('auth');
 
 Route::get('pet-shop/profile', [ProductController::class, 'profile'])->name('pet-shop/profile')->middleware('auth');
+
+Route::post('pet-shop/make-order',[ProductController::class,'makeOrder'])->name('pet-shop/make-order')->middleware('auth');
 
 require __DIR__ . '/auth.php';
 
