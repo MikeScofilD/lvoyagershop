@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderIn;
+use App\Mail\OrderOut;
 use App\Models\Order;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class ProductController extends Controller
@@ -91,7 +94,7 @@ class ProductController extends Controller
         });
 
         if (!empty($messageSuccessOrder)) {
-            return view('pet-shop/checkout', [ 
+            return view('pet-shop/checkout', [
                 'cart' => $cart,
                 'sum' => $sum,
                 'user' => $user,
@@ -151,6 +154,14 @@ class ProductController extends Controller
         $order->phone = $request->phone;
         $order->save();
         if ($order->save()) {
+            Mail::to($request->user())->send(new OrderIn([
+                'cart' => $cart,
+                'sum' => $sum,
+            ]));
+            Mail::to($request->user())->send(new OrderOut([
+                'cart' => $cart,
+                'sum' => $sum,
+            ]));
             \Cart::clear();
             Session::flash('successOrder', 'Order created successfully');
             return back();
